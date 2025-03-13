@@ -42,13 +42,13 @@ public class Contact {
 
     @Override
     public String toString() {
-        return "Contact{name='" + name + '\'' +
-                ", phoneNumber='" + phoneNumber + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", email='" + email + '\'' +
-                ", workplace='" + workplace + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
+        return "Contact{name='" + name + "\n" +
+                ", phoneNumber='" + phoneNumber + "\n" +
+                ", firstName='" + firstName + "\n" +
+                ", email='" + email + "\n" +
+                ", workplace='" + workplace + "\n" +
+                ", city='" + city + "\n" +
+                ", state='" + state + "\n" +
                 ", birthday=" + birthday +
                 '}';
     }

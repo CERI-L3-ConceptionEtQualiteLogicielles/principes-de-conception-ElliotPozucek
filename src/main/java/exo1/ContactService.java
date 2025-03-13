@@ -11,6 +11,7 @@ import java.awt.Image;
  * @see ContactRepository
  */
 class ContactService {
+    private static ContactService instance;
     /**
      * A repository represents the memory implementation. It could be a database, or a List in this project.
      */
@@ -28,7 +29,7 @@ class ContactService {
      */
     private ContactFormatter contactFormatter;
 
-    public ContactService(ContactRepository repository,
+    private ContactService(ContactRepository repository,
                           MessageService messageService,
                           PhotoService photoService,
                           ContactFormatter contactFormatter) {
@@ -36,6 +37,16 @@ class ContactService {
         this.messageService = messageService;
         this.photoService = photoService;
         this.contactFormatter = contactFormatter;
+    }
+
+    public static ContactService getInstance(ContactRepository repository,
+                                             MessageService messageService,
+                                             PhotoService photoService,
+                                             ContactFormatter contactFormatter) {
+        if (instance == null) {
+            instance = new ContactService(repository, messageService, photoService, contactFormatter);
+        }
+        return instance;
     }
 
     public void addContact(Contact contact) {
@@ -48,7 +59,7 @@ class ContactService {
 
     public void displayContacts() {
         for (Contact contact : repository.getAllContacts()) {
-            System.out.println(contact);
+            System.out.println(contactFormatter.formatContact(contact));
         }
     }
 

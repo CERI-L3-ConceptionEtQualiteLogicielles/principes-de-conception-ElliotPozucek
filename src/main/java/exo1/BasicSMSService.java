@@ -6,6 +6,6 @@ package exo1;
 class BasicSMSService implements MessageService {
     @Override
     public void sendMessage(Contact contact, String message) {
-        System.out.println("Sending message to " + contact.getName() + ": " + message);
+        System.out.println("Sending a SMS to " + contact.getName() + ": " + message);
     }
 }
