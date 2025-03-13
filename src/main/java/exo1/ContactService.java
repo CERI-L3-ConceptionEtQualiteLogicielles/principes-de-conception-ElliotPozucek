@@ -1,5 +1,7 @@
 package exo1;
 
+import java.awt.*;
+
 /**
  * Provides contact management operations.
  * <p>This class follows the Dependency Inversion Principle by depending on the
@@ -17,10 +19,17 @@ class ContactService {
      * Represents the messaging service. It could be an instance of BasicEmailService or BasicSMSService.
      */
     private MessageService messageService;
+    /**
+     * Represents an implementation of the photo service implementation.
+     */
+    private PhotoService photoService;
 
-    public ContactService(ContactRepository repository, MessageService messageService) {
+    public ContactService(ContactRepository repository,
+                          MessageService messageService,
+                          PhotoService photoService) {
         this.repository = repository;
         this.messageService = messageService;
+        this.photoService = photoService;
     }
 
     public void addContact(Contact contact) {
@@ -39,6 +48,10 @@ class ContactService {
 
     public void sendMessageToContact(Contact contact, String message) {
         messageService.sendMessage(contact, message);
+    }
+
+    public void sendPhotoToContact(Contact contact, Image image) {
+        photoService.sendPhoto(contact, image);
     }
 
 }

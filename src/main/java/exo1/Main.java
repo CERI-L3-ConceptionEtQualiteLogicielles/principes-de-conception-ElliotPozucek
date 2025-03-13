@@ -1,6 +1,6 @@
 package exo1;
 
-import org.junit.jupiter.api.Test;
+import java.awt.Image;
 
 public class Main {
     public static void main(String[] args) {
@@ -13,8 +13,9 @@ public class Main {
     static void testMessages() {
         ContactRepository repository = new InMemoryContactRepository();
         MessageService messageService = new BasicSMSService(); // could also be BasicEmailService()
+        PhotoService photoService = new PhotoServiceAdapter(new ServicePhotoSending()); // we use the adapter because we cannot modify the pre-existing class ServicePhotoSending
 
-        ContactService contactService = new ContactService(repository, messageService);
+        ContactService contactService = new ContactService(repository, messageService, photoService);
 
         Contact alice = new Contact("Alice", "123-456");
         contactService.addContact(alice);
@@ -22,8 +23,7 @@ public class Main {
         contactService.displayContacts();
         contactService.sendMessageToContact(alice, "Hello Alice! ; via SMS"); // Sends an SMS
 
-        MessageService emailService = new BasicEmailService();
-        ContactService emailContactService = new ContactService(repository, emailService);
-        emailContactService.sendMessageToContact(alice, "Hi Alice! ; via email");
+        Image dummyImage = null;
+        contactService.sendPhotoToContact(alice, dummyImage);
     }
 }
