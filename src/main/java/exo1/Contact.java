@@ -41,7 +41,7 @@ interface ContactRepository {
 }
 
 /**
- * Implements an in-memory (List) storage for contacts.
+ * Implements an in-memory (ArrayList) storage for contacts.
  * This class follows the Open/Closed Principle since new storage implementations can be created without modifying existing code.
  */
 class InMemoryContactRepository implements ContactRepository {
@@ -76,9 +76,14 @@ class ContactService {
      * A repository represents the memory implementation. It could be a database, or a List in this project.
      */
     private ContactRepository repository;
+    /**
+     * Represents the messaging service. It could be an instance of BasicEmailService or BasicSMSService.
+     */
+    private MessageService messageService;
 
-    public ContactService(ContactRepository repository) {
+    public ContactService(ContactRepository repository, MessageService messageService) {
         this.repository = repository;
+        this.messageService = messageService;
     }
 
     public void addContact(Contact contact) {
@@ -94,23 +99,38 @@ class ContactService {
             System.out.println(contact);
         }
     }
+
+    public void sendMessageToContact(Contact contact, String message) {
+        messageService.sendMessage(contact, message);
+    }
+
 }
 
 /**
- * Defines the contract for email operations.
- * This interface follows the Interface Segregation Principle because it only handles email-related functionality.
+ * Defines the contract for messages operations.
+ * This interface follows the Interface Segregation Principle because it only handles message-related functionality.
  */
-interface EmailService {
-    void sendEmail(Contact contact, String message);
+interface MessageService {
+    void sendMessage(Contact contact, String message);
 }
 
 /**
  * Implements an email sending service.
  * This class follows the Open/Closed Principle because new email implementations can be added without modifying existing code.
  */
-class BasicEmailService implements EmailService {
+class BasicEmailService implements MessageService {
     @Override
-    public void sendEmail(Contact contact, String message) {
+    public void sendMessage(Contact contact, String message) {
         System.out.println("Sending email to " + contact.getName() + ": " + message);
+    }
+}
+
+/**
+ * Implements an SMS sending Service.
+ */
+class BasicSMSService implements MessageService {
+    @Override
+    public void sendMessage(Contact contact, String message) {
+        System.out.println("Sending message to " + contact.getName() + ": " + message);
     }
 }
