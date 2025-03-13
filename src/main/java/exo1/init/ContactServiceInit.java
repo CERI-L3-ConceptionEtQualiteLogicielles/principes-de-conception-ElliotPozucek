@@ -1,4 +1,4 @@
-package exo1;
+package exo1.init;
 
 public interface ContactServiceInit {
     void addContact(ContactInit contact);

@@ -7,6 +7,9 @@ public class Main {
         testMessages();
     }
 
+    /**
+     * Should never not work after adding a new functionality.
+     */
     static void testMessages() {
         ContactRepository repository = new InMemoryContactRepository();
         MessageService messageService = new BasicSMSService(); // could also be BasicEmailService()

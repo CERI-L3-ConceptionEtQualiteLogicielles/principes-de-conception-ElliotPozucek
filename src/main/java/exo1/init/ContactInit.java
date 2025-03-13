@@ -1,4 +1,4 @@
-package exo1;
+package exo1.init;
 
 import java.util.ArrayList;
 import java.util.List;
