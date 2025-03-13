@@ -14,8 +14,9 @@ public class Main {
         ContactRepository repository = new InMemoryContactRepository();
         MessageService messageService = new BasicSMSService(); // could also be BasicEmailService()
         PhotoService photoService = new PhotoServiceAdapter(new ServicePhotoSending()); // we use the adapter because we cannot modify the pre-existing class ServicePhotoSending
+        ContactFormatter contactFormatter = new TextFormatter(); // could be JsonFormatter or XmlFormatter
 
-        ContactService contactService = new ContactService(repository, messageService, photoService);
+        ContactService contactService = new ContactService(repository, messageService, photoService, contactFormatter);
 
         Contact alice = new Contact("Alice", "123-456");
         contactService.addContact(alice);

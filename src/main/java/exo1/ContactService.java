@@ -1,6 +1,6 @@
 package exo1;
 
-import java.awt.*;
+import java.awt.Image;
 
 /**
  * Provides contact management operations.
@@ -23,13 +23,19 @@ class ContactService {
      * Represents an implementation of the photo service implementation.
      */
     private PhotoService photoService;
+    /**
+     * Represents the implementation of the formatter for contacts.
+     */
+    private ContactFormatter contactFormatter;
 
     public ContactService(ContactRepository repository,
                           MessageService messageService,
-                          PhotoService photoService) {
+                          PhotoService photoService,
+                          ContactFormatter contactFormatter) {
         this.repository = repository;
         this.messageService = messageService;
         this.photoService = photoService;
+        this.contactFormatter = contactFormatter;
     }
 
     public void addContact(Contact contact) {
