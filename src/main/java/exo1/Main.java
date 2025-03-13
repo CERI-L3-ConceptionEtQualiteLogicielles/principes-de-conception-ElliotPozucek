@@ -18,13 +18,15 @@ public class Main {
 
         ContactService contactService = new ContactService(repository, messageService, photoService, contactFormatter);
 
-        Contact alice = new Contact("Alice", "123-456");
-        contactService.addContact(alice);
+        Contact contact1 = new Contact.ContactBuilder("Extra", "123-456")
+                .setFirstName("Alice")
+                .setEmail("alice.extra@yahoo.com")
+                .build();
 
+        contactService.addContact(contact1);
         contactService.displayContacts();
-        contactService.sendMessageToContact(alice, "Hello Alice! ; via SMS"); // Sends an SMS
-
+        contactService.sendMessageToContact(contact1, "Hello Alice! ; via SMS"); // Sends an SMS
         Image dummyImage = null;
-        contactService.sendPhotoToContact(alice, dummyImage);
+        contactService.sendPhotoToContact(contact1, dummyImage);
     }
 }
